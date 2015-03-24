@@ -1,0 +1,7 @@
+--no-private
+--title=""
+--markup=markdown
+--template-path=./yard
+--exclude lib/gocdkit/arguments.rb
+--exclude lib/gocdkit/repo_arguments.rb
+--exclude lib/gocdkit/response

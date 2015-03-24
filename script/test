@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -e
+
+echo "===> Bundling..."
+script/bootstrap --quiet
+
+for testvar in LOGIN PASSWORD
+do
+  gocdkitvar="GOCDKIT_TEST_${testvar}"
+  if [[ -z "${!gocdkitvar}" ]]; then
+      echo "Please export ${gocdkitvar}";
+  fi
+done
+
+echo "===> Running specs..."
+(bundle exec rake spec)
