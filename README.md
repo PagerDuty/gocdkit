@@ -18,19 +18,20 @@ or
 ```ruby
 # Provide authentication credentials
 client = Gocdkit::Client.new(:login => 'i_am_a_go_user', :password => 'continuous_delivery_R0X')
-# Fetch the current user
+# Fetch all pipelines
 client.pipelines
 ```
 
 ### Accessing HTTP responses
 
-While most methods return a `Resource` object or a Boolean, sometimes you may
+While most methods return a `Resource` object, sometimes you may
 need access to the raw HTTP response headers. You can access the last HTTP
 response with `Client#last_response`:
 
 ```ruby
-user      = Gocdkit.config
-response  = Gocdkit.last_response
+config      = Gocdkit.config
+response    = Gocdkit.last_response
+# TODO finish example
 ```
 
 ## Authentication
@@ -166,7 +167,7 @@ ENV Variable | Description |
 
 ## Supported Ruby Versions
 
-This library aims to support and is tested against the following Ruby
+This library was tested against the following Ruby
 implementations:
 
 * Ruby 2.1.4
