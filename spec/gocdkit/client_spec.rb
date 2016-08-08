@@ -137,7 +137,7 @@ describe Gocdkit::Client do
           config.password = 'il0veruby'
         end
 
-        pipeline_groups_request = stub_get("http://pengwynn:il0veruby@localhost:8153/go/api/config/pipeline_groups")
+        pipeline_groups_request = stub_get("http://localhost:8153/go/api/config/pipeline_groups")
         Gocdkit.client.get("/go/api/config/pipeline_groups")
         assert_requested pipeline_groups_request
       end
