@@ -27,14 +27,12 @@ module Gocdkit
       end
 
       # Get information about a pipeline
-      # Note: The Api should likely be providing this, we're doing too much work here
       #
       # @param pipeline_name [String] Pipeline name
       # @return [Sawyer::Resource] Pipeline
-      def pipeline(pipeline_name, options = {})
-        pipelines.each do |pipeline|
-          return pipeline if pipeline[:name] == pipeline_name
-        end
+      def get_pipeline(pipeline_name, options = {})
+        options[:accept] =  'application/vnd.go.cd.v2+json'
+        get "admin/pipelines/#{pipeline_name}", options
       end
 
       # Get pipeline status
