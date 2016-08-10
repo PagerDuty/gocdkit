@@ -27,14 +27,12 @@ module Gocdkit
       end
 
       # Get information about a pipeline
-      # Note: The Api should likely be providing this, we're doing too much work here
       #
       # @param pipeline_name [String] Pipeline name
       # @return [Sawyer::Resource] Pipeline
-      def pipeline(pipeline_name, options = {})
-        pipelines.each do |pipeline|
-          return pipeline if pipeline[:name] == pipeline_name
-        end
+      def get_pipeline(pipeline_name, options = {})
+        options[:accept] =  'application/vnd.go.cd.v1+json'
+        get "admin/pipelines/#{pipeline_name}", options
       end
 
       # Get pipeline status
@@ -99,39 +97,17 @@ module Gocdkit
       end
 
       # Create a new pipeline. Requires an authenticated admin user
-      # if the go-server has security enabled.
+      # if the go-server has security enabled. See docs for all available options.
       #
-      #--
-      # Dear Gocd devs,
-      #   Why the hell are we posting form-urlencoded data to a *.json endpoint??
-      # Signed,
-      # Frustrated
-      #++
+      # @option options [String] :name name of the pipeline. Required.
+      # @option options [Array] :materials list of materials used by pipeline. List must contain at least one entry.
+      # @option options [Array] :stages list of pipeline stages. List must contain at least one entry, or specify `template`.
       #
-      # @param pipeline_name [String]
-      # @param scm [String] Either svn, git, hg, p4 or tfs
-      # @param options [Hash] pipeline information
-      # @option options [String] :pipelineGroup Name of the Pipeline Group to add the pipeline to. Will be created if it does not already exist.
-      # @option options [String] :builder Can be `ant`, `nant`, `rake` or `exec`.
-      # @option options [String] :buildfile Cannot be used with exec. example, `build.xml`
-      # @option options [String] :target Cannot be used with exec. example, `all`
-      # @option options [String] :command Required with exec. example, `unittest.sh arg1 arg2`
-      # @option options [String] :source example, `pkg`
-      # @option options [String] :dest example, `installer`
-      # @option options [String] :username scm username. For use with svn, p4 and tfs repositories.
-      # @option options [String] :password scm password. For use with svn, p4 and tfs repositories.
-      # @option options [String] :useTickets `true` or `false`. For use with p4 repositories only.
-      # @option options [String] :view Required for p4 repositories. example, `//depot/... //something/...`
-      # @option options [String] :domain Domain name that given user belongs to. For use with tfs repositories only.
-      # @option options [String] :projectPath Required for tfs repositories. example, `$/MyProject`
-      # @see http://www.go.cd/documentation/user/current/api/configuration_api.html#adding-a-new-pipeline
-      def create_pipeline(pipeline_name, scm, url, options = {})
-        options.merge! :scm => scm
-        options.merge! :url => url
-        options.merge! :form_encode => true # UGH whyyyyyyyy.
-        post "/go/tab/admin/pipelines/#{pipeline_name}.json", options
+      # @see https://api.go.cd/16.7.0/#create-a-pipeline
+      def create_pipeline(options = {})
+        options[:accept] =  'application/vnd.go.cd.v1+json'
+        post 'admin/pipelines', options
       end
-
     end
   end
 end

@@ -22,7 +22,8 @@ group :test do
   gem 'rb-fsevent', '~> 0.9'
   gem 'rspec', '~> 3.0.0'
   gem 'simplecov', :require => false
-  gem 'vcr', '~> 2.9.2'
+  gem 'vcr', '~> 3.0'
+  gem 'multi_json'
   gem 'webmock', '>= 1.9'
 end
 

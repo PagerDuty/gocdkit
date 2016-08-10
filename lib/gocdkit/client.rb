@@ -191,13 +191,6 @@ module Gocdkit
         if content_type = data.delete(:content_type)
           options[:headers][:content_type] = content_type
         end
-        # AUUUGHhh here is where I regret not using Faraday directly
-        # The real fix here is to make a Serializer class pass it to
-        # the Sawyer options...
-        if data.delete(:form_encode)
-          data = URI.encode_www_form(data)
-          options[:headers]['Content-Type'] = 'application/x-www-form-urlencoded'
-        end
       end
 
       @last_response = response = agent.call(method, URI::Parser.new.escape(path.to_s), data, options)
