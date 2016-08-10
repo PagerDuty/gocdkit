@@ -31,7 +31,7 @@ module Gocdkit
       # @param pipeline_name [String] Pipeline name
       # @return [Sawyer::Resource] Pipeline
       def get_pipeline(pipeline_name, options = {})
-        options[:accept] =  'application/vnd.go.cd.v2+json'
+        options[:accept] =  'application/vnd.go.cd.v1+json'
         get "admin/pipelines/#{pipeline_name}", options
       end
 
@@ -105,7 +105,7 @@ module Gocdkit
       #
       # @see https://api.go.cd/16.7.0/#create-a-pipeline
       def create_pipeline(options = {})
-        options[:accept] =  'application/vnd.go.cd.v2+json'
+        options[:accept] =  'application/vnd.go.cd.v1+json'
         post 'admin/pipelines', options
       end
     end
