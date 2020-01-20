@@ -1,3 +1,6 @@
+# Deprecated
+This repository is no longer maintained.
+
 # Gocdkit
 
 Ruby toolkit for the [go-server][go-server] API. Client code forked from octokit.rb
